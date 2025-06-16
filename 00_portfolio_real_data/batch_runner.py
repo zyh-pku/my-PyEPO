@@ -1,40 +1,40 @@
-# General imports
-import time
-import pandas as pd
-import numpy as np
-import gc
-from multiprocessing import get_context, shared_memory, Process
+# # General imports
+# import time
+# import pandas as pd
+# import numpy as np
+# import gc
+# from multiprocessing import get_context, shared_memory, Process
 
-# Model imports
-from model_factory import build_market_neutral_model,build_market_neutral_model_testing
-from config import *
+# # Model imports
+# from model_factory import build_market_neutral_model,build_market_neutral_model_testing
+# from config import *
 
-# PyEPO imports
-from pyepo.data.dataset import optDataset
+# # PyEPO imports
+# from pyepo.data.dataset import optDataset
 
-# Gurobi
-import gurobipy as gp
-from gurobipy import GRB
-from pyepo.model.grb import optGrbModel
+# # Gurobi
+# import gurobipy as gp
+# from gurobipy import GRB
+# from pyepo.model.grb import optGrbModel
 
-# Pyomo
-from pyomo import environ as pe
-from pyepo.model.omo import optOmoModel # 记得要把 omo 文件夹里的 __init__.py 文件也修改了
-from pyepo import EPO
+# # # Pyomo
+# # from pyomo import environ as pe
+# # from pyepo.model.omo import optOmoModel # 记得要把 omo 文件夹里的 __init__.py 文件也修改了
+# # from pyepo import EPO
 
-# COPTPy
-from coptpy import Envr, COPT
-from pyepo.model.copt import optCoptModel
+# # # COPTPy
+# # from coptpy import Envr, COPT
+# # from pyepo.model.copt import optCoptModel
 
-# MPAX
-from pyepo.model.mpax import optMpaxModel
+# # # MPAX
+# # from pyepo.model.mpax import optMpaxModel
 
-# PCA
-from sklearn.decomposition import PCA
-import pickle
+# # PCA
+# from sklearn.decomposition import PCA
+# import pickle
 
 
-os.environ['GRB_LICENSE_FILE'] = os.path.expanduser("~/gurobi/gurobi.lic")
+# # os.environ['GRB_LICENSE_FILE'] = os.path.expanduser("~/gurobi/gurobi.lic")
 
 def run_batch_shared(shm_names, shapes, dtypes, feats_data, costs_data, N, A, b, l, u, risk_f, risk_abs, single_abs, l1_abs, cov_matrix, sigma_abs):
     model = build_market_neutral_model(N, A, b, l, u, risk_f, risk_abs, single_abs, l1_abs, cov_matrix, sigma_abs)

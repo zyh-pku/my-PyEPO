@@ -20,17 +20,17 @@ import gurobipy as gp
 from gurobipy import GRB
 from pyepo.model.grb import optGrbModel
 
-# Pyomo
-from pyomo import environ as pe
-from pyepo.model.omo import optOmoModel # 记得要把 omo 文件夹里的 __init__.py 文件也修改了
-from pyepo import EPO
+# # Pyomo
+# from pyomo import environ as pe
+# from pyepo.model.omo import optOmoModel # 记得要把 omo 文件夹里的 __init__.py 文件也修改了
+# from pyepo import EPO
 
-# COPTPy
-from coptpy import Envr, COPT
-from pyepo.model.copt import optCoptModel
+# # COPTPy
+# from coptpy import Envr, COPT
+# from pyepo.model.copt import optCoptModel
 
-# MPAX
-from pyepo.model.mpax import optMpaxModel
+# # MPAX
+# from pyepo.model.mpax import optMpaxModel
 
 import torch
 
