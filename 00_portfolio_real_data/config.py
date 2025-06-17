@@ -7,12 +7,25 @@ import os
 # COST & FEATURE COLUMNS
 #############################################################################
 Y_COL = 'return_30min'  
-X_COLS = ['open', 'high', 'low', 'close', 'volume','count']
+
+# Original features + Technical indicators
+X_COLS = [
+    # Original features
+    'open', 'high', 'low', 'close', 'volume', 'count',
+    
+    # Technical indicators from compute_technical_features
+    'mean_return', 'volatility', 'trend', 'volume_trend',
+    'momentum_5d', 'momentum_10d', 'rsi', 'price_to_ma5', 'price_to_ma10',
+    'close_ema_30m', 'close_ema_60m', 'macd_30_60', 'macd_12_26', 'macd_30_120',
+    'normalized_price'
+]
+
 
 #############################################################################
 # FILE PATHS
 #############################################################################
-ROOT_PATH = "/scratch/gpfs/sl3965/datasets"
+# ROOT_PATH = "/scratch/gpfs/sl3965/datasets"
+ROOT_PATH = "/home/yuheng" # "/Users/tarothousand/Desktop/EndToEnd/my-PyEPO/00_portfolio_real_data"
 RAW_DATA_PATH = os.path.join(ROOT_PATH, "perp_futures_klines")
 PROCESSED_DATA_PATH = os.path.join(ROOT_PATH, "processed_crypto_data.csv")
 ALIGNED_CRYPTO_DATA_PATH = os.path.join(ROOT_PATH, "aligned_crypto_data.parquet")
@@ -34,23 +47,40 @@ MARKET_MODEL_DIR_TESTING = "market_neutral_model_params_testing.pkl"
 
 
 #############################################################################
-# MARKET NEUTRAL MODEL
+# MARKET NEUTRAL MODEL PARAMETERS
 #############################################################################
-N = 13  # Number of assets, updated from data
-A = np.ones((1, N))
-b = np.array([1.0])
-l = np.zeros(N)
-u = np.zeros(N) + 1e6
-M = np.random.randn(N, N) # Generate random positive definite covariance matrix
-COV_MATRIX = M.T @ M + np.eye(N) * 1e-3
+# Number of assets (will be updated dynamically based on data)
+N = 13
+
+# Constraint matrices (will be updated dynamically)
+def get_constraint_matrices(n_assets):
+    """Generate constraint matrices based on number of assets"""
+    A = np.ones((1, n_assets))
+    b = np.array([0.0])
+    l = np.zeros(n_assets)
+    u = np.zeros(n_assets) + 1e6
+    return A, b, l, u
+
+def get_covariance_matrix(costs_data):
+    """Generate covariance matrix from costs data"""
+    return np.cov(costs_data, rowvar=False, bias=False)
+
+def get_risk_factor(costs_data):
+    """Generate risk factor from PCA of costs data"""
+    from sklearn.decomposition import PCA
+    pca = PCA(n_components=1)
+    return pca.fit(costs_data).components_[0]
 
 # Risk and constraint parameters
-RISK_F     = np.random.randn(N)
-RISK_ABS   = 1.5
+RISK_ABS = 1.5
 SINGLE_ABS = 0.1
-L1_ABS     = 1.0
-SIGMA_ABS  = 2.5
-TURNOVER   = 0.3
+L1_ABS = 1.0
+SIGMA_ABS = 2.5
+TURNOVER = 0.3
+
+# Data processing parameters
+TRUNCATION_THRESHOLD = 0.05
+TRAIN_TEST_SPLIT_RATIO = 0.8
 
 
 #############################################################################
