@@ -1,7 +1,7 @@
 import random
 import os
 import torch
-import tensorflow as tf
+# import tensorflow as tf
 
 def set_seed(seed=42):
     """
@@ -34,10 +34,10 @@ def set_seed(seed=42):
     except (ImportError, AttributeError):
         pass
     
-    # TensorFlow
-    try:
-        tf.random.set_seed(seed)
-    except ImportError:
-        pass
+    # # TensorFlow
+    # try:
+    #     tf.random.set_seed(seed)
+    # except ImportError:
+    #     pass
     
     print(f"Seed set to {seed}")

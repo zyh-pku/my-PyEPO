@@ -45,8 +45,8 @@ def process_perp_futures_data(
         Processed DataFrame including feature columns, future return column,
         and symbol/time columns.
     """
-    # 创建下载目录
-    os.makedirs("crypto_data", exist_ok=True)
+    # # 创建下载目录
+    # os.makedirs("crypto_data", exist_ok=True)
 
     # 检查数据文件夹是否存在
     if not os.path.exists(data_path):
@@ -64,8 +64,7 @@ def process_perp_futures_data(
             # 读取所有 parquet 文件并合并
             print("正在读取数据文件...")
             dfs = []
-            
-            for file in tqdm(parquet_files):
+            for file in tqdm(parquet_files[:7], desc="只读取前7个symbol文件"):
                 try:
                     df_temp = pd.read_parquet(file, engine='pyarrow')
                     # 从文件名提取 symbol

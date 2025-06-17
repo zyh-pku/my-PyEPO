@@ -21,13 +21,13 @@ with open(MARKET_MODEL_DIR_TESTING, "rb") as f:
 import os
 
 
-os.environ['GUROBI_HOME'] = '/usr/licensed/gurobi/12.0.0/linux64'
-os.environ['GRB_LICENSE_FILE'] = '/usr/licensed/gurobi/license/gurobi.lic'
+# os.environ['GUROBI_HOME'] = '/usr/licensed/gurobi/12.0.0/linux64'
+# os.environ['GRB_LICENSE_FILE'] = '/usr/licensed/gurobi/license/gurobi.lic'
 
-# 清除个人WLS许可证
-for var in ['WLSACCESSID', 'WLSSECRET']:
-    if var in os.environ:
-        del os.environ[var]
+# # 清除个人WLS许可证
+# for var in ['WLSACCESSID', 'WLSSECRET']:
+#     if var in os.environ:
+#         del os.environ[var]
 
 
 
