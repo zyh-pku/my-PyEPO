@@ -197,7 +197,7 @@ class MarketNeutralGrbModel_testing(optGrbModel):
         self.turnover = turnover
         
         # 保存前期权重，默认为等权重（首次投资）
-        self.w_prev = np.ones(N) / N  # Equal weights instead of zeros
+        self.w_prev = np.zeros(N) / N  # Equal weights instead of zeros
         
         # 存储换手率约束引用的列表（优化关键）
         self._turnover_pos_constrs = []
