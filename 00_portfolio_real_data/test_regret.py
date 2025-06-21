@@ -50,6 +50,7 @@ def sequential_regret(predmodel, optmodel, dataloader, verbose=False):
             if predmodel.training:
                 predmodel.eval()
             pred_costs = predmodel(x).to("cpu").detach().numpy()  # (batch_size, num_assets) 
+            pred_costs = (pred_costs - np.mean(pred_costs, axis=1, keepdims=True)) / (np.std(pred_costs, axis=1, keepdims=True) + 1e-8) # 
             
             # Get true costs and solutions for this sequence
             true_costs = c.to("cpu").detach().numpy()  # (batch_size, num_assets) 
@@ -177,6 +178,7 @@ def sequential_solutions(predmodel, params_testing, dataloader, verbose=False):
             if predmodel.training:
                 predmodel.eval()
             pred_costs = predmodel(x).to("cpu").detach().numpy()  # (batch_size, num_assets) 
+            pred_costs = (pred_costs - np.mean(pred_costs, axis=1, keepdims=True)) / (np.std(pred_costs, axis=1, keepdims=True) + 1e-8)
             
             
             # Calculate sequential regret for this sequence

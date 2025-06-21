@@ -24,8 +24,8 @@ X_COLS = [
 #############################################################################
 # FILE PATHS
 #############################################################################
-# ROOT_PATH = "/scratch/gpfs/sl3965/datasets"
-ROOT_PATH = "/home/yuheng" # "/Users/tarothousand/Desktop/EndToEnd/my-PyEPO/00_portfolio_real_data"
+ROOT_PATH = "/scratch/gpfs/sl3965/datasets"
+#ROOT_PATH = "/home/yuheng" # "/Users/tarothousand/Desktop/EndToEnd/my-PyEPO/00_portfolio_real_data"
 RAW_DATA_PATH = os.path.join(ROOT_PATH, "perp_futures_klines")
 PROCESSED_DATA_PATH = os.path.join(ROOT_PATH, "processed_crypto_data.csv")
 ALIGNED_CRYPTO_DATA_PATH = os.path.join(ROOT_PATH, "aligned_crypto_data.parquet")
@@ -76,7 +76,7 @@ RISK_ABS = 1.5
 SINGLE_ABS = 0.1
 L1_ABS = 1.0
 SIGMA_ABS = 2.5
-TURNOVER = 0.3
+TURNOVER = 0.5
 
 # Data processing parameters
 TRUNCATION_THRESHOLD = 0.05
@@ -104,7 +104,7 @@ elif DEVICE.type == "mps":
 #############################################################################
 # NEURAL NETWORK PARAMETERS
 #############################################################################
-K = 6
+K = 21
 HIDDEN_DIM = 32
 LSTM_HIDDEN_DIM = 64
 DROPOUT_RATE = 0.0
